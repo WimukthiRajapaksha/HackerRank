@@ -22,37 +22,73 @@ class Result {
      */
 
     public static void separateNumbers(String s) {
+        if (s.charAt(0)=='0') {
+            System.out.println("NO");
+            return;
+        }
         boolean found = false;
-        int max = s.length() > 2 ? s.length()/2+1 : s.length()/2;
+        double max = s.length() / 2; //? s.length()/2+1 : s.length()/2;
         String base="";
-        for (int i=0; i<max;i++) {
+        for (int i=0; i<max; i++) {
             base+=String.valueOf(s.charAt(i));
-//            for (int j=0; j<i; j++) {
-//                base += String.valueOf(s.charAt(j));
-//            }
-            System.out.println(base);
-            int adding = Integer.parseInt(base);
+            System.out.println(base+"...........................");
+            long adding = Long.parseLong(base);
             String regenerated = "";
             while(s.length()>regenerated.length()) {
                 regenerated+=adding;
                 adding++;
             }
-            if (s.length()>regenerated.length()) {
-                regenerated+=adding;
-            }
-//            System.out.println(regenerated+"----");
-            if (Double.parseDouble(s)==Double.parseDouble(regenerated)) {
+            if (s.length()==regenerated.length() && (s.equals(regenerated))) {
                 found = true;
-                System.out.println("Found "+base);
+                System.out.println("YES "+base);
                 break;
-            } 
-//            else {
-//                System.out.println("Nope");
-//            }
+            }
         }
         if (!found) {
-            System.out.println("Nope");
+            System.out.println("NO");
         }
+        
+        
+        
+        
+        
+//        for (int i=0; i<max;i++) {
+//            base+=String.valueOf(s.charAt(i));
+////            for (int j=0; j<i; j++) {
+////                base += String.valueOf(s.charAt(j));
+////            }
+////            System.out.println(base);
+//            if (s.charAt(0)=='0') {
+//                System.out.println("NO");
+//                return;
+//            }
+//            int adding = Integer.parseInt(base);
+//            String regenerated = "";
+//            while(s.length()>regenerated.length()) {
+//                regenerated+=adding;
+//                adding++;
+//            }
+////            if (s.length()>regenerated.length()) {
+////                regenerated+=adding;
+////            }
+//            
+//            if (s.length()==regenerated.length() && (s.equals(regenerated))) {
+//                found = true;
+//                System.out.println("YES "+base);
+//                break;
+//            }
+////            if (Double.parseDouble(s)==Double.parseDouble(regenerated)) {
+////                found = true;
+////                System.out.println("Found "+base);
+////                break;
+////            } 
+////            else {
+////                System.out.println("Nope");
+////            }
+//        }
+//        if (!found) {
+//            System.out.println("NO");
+//        }
         
         
 //        double value = Double.parseDouble(s);
@@ -128,14 +164,19 @@ public class SeparateTheNumbers {
 //        Result.separateNumbers("7891011");
 //        Result.separateNumbers("9899100");
 //        Result.separateNumbers("999100010001");
+//        Result.separateNumbers("1001002103104105");
         
-        Result.separateNumbers("1234");
-        Result.separateNumbers("91011");
-        Result.separateNumbers("99100");
-        Result.separateNumbers("101103");
-        Result.separateNumbers("010203");
-        Result.separateNumbers("13");
-        Result.separateNumbers("1");
+//        Result.separateNumbers("1234");
+//        Result.separateNumbers("91011");
+//        Result.separateNumbers("99100");
+//        Result.separateNumbers("101103");
+//        Result.separateNumbers("010203");
+//        Result.separateNumbers("13");
+//        Result.separateNumbers("1");
+
+        Result.separateNumbers("234");
+        
+        
     }
     
 }

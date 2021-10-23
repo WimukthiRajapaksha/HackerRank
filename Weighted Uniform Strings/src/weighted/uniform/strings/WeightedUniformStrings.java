@@ -7,7 +7,9 @@ package weighted.uniform.strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -26,61 +28,34 @@ class Result {
      */
 
     public static List<String> weightedUniformStrings(String s, List<Integer> queries) {
-        List<String> li = new ArrayList<>();
-        boolean[] liss = new boolean[queries.size()];
-        int count = 0;
-        int prevMatch = 0;
+        Set<Integer> sum = new HashSet<>();
+        List<String> returnList = new ArrayList<>();
         
-        for(int i=0; i<s.length(); i++) {
-            System.out.println(s.charAt(i));
-            if (count==0) {
-                count = 1;
-                prevMatch = Character.toLowerCase(s.charAt(i));
-                System.out.println(prevMatch);
-                System.out.println(count*(prevMatch-96));
-                if (queries.contains(count*(prevMatch-96))) {
-                    liss[queries.indexOf(count*(prevMatch-96))] = true;
-                    System.out.println("yes1");
-//                    li.add("YES");
-                } else {
-                    System.out.println("no1");
-//                    li.add("NO");
-                }
+        char prev = s.charAt(0);
+        int counter = 1;
+        for (int i=0; i<s.length(); i++) {
+            if (i==0) {
+                counter = 1;
             } else {
-                if (prevMatch == s.charAt(i)) {
-                    count++;
-                    if (queries.contains(count*(prevMatch-96))) {
-                        liss[queries.indexOf(count*(prevMatch-96))] = true;
-                        System.out.println("yes2");
-//                        li.add("YES");
-                    } else {
-                        System.out.println("no2");
-//                        li.add("NO");
-                    }
+                if (s.charAt(i-1)==s.charAt(i) && prev == s.charAt(i)) {
+                    counter++;
+                } else if (s.charAt(i-1)==s.charAt(i) && prev != s.charAt(i)) {
+                    counter = 0;
                 } else {
-                    prevMatch = Character.toLowerCase(s.charAt(i));
-                    count = 1;
-                    if (queries.contains(count*(prevMatch-96))) {
-                        liss[queries.indexOf(count*(prevMatch-96))] = true;
-                        System.out.println("yes3");
-//                        li.add("YES");
-                    } else {
-                        System.out.println("no3");
-//                        li.add("NO");
-                    }
+                    counter = 1;
+                    prev = s.charAt(i);
                 }
             }
-            
+            System.out.println(counter*(Character.toLowerCase(s.charAt(i))-96));
+            sum.add(counter*(Character.toLowerCase(s.charAt(i))-96));
         }
         
-        for (boolean ss: liss) {
-            li.add(ss == true ? "YES" : "NO");
+        System.out.println(sum);
+        for (int q: queries) {
+            System.out.println(sum.contains(q) ? "Yes" : "No");
+            returnList.add(sum.contains(q) ? "Yes" : "No");
         }
-        System.out.println("--------------");
-        for (String i: li) {
-            System.out.println(i);
-        }
-        return li;
+        return returnList;
     }
 
 }
@@ -92,7 +67,7 @@ public class WeightedUniformStrings {
      */
     public static void main(String[] args) {
 //        Result.weightedUniformStrings("abccddde", Arrays.asList(1, 3, 12, 5, 9, 10));
-        Result.weightedUniformStrings("aaabbbbcccddd", Arrays.asList(9, 7 ,8, 12, 5));
+        Result.weightedUniformStrings("abbcccdccxxxx", Arrays.asList(9, 7 ,8, 12, 5));
     }
     
 }
