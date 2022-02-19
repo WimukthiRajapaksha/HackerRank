@@ -26,37 +26,25 @@ class Result {
      */
 
     public static List<Integer> dynamicArray(int n, List<List<Integer>> queries) {
-        List<List<Integer>> returnList = new ArrayList<>();
-        
-        List<Integer> ansArr = new ArrayList<>();
-        for (int i=0; i<n; i++) {
-            returnList.add(ansArr);
-        }
-        int la = 0;
-        int li = 0;
-        for (int i=0; i<queries.size(); i++) {
-            if (queries.get(i).get(0) == 1) {
-                int val = queries.get(i).get(2);
-                List<Integer> temp = returnList.get(i);
-                temp.add(val);
-                System.out.println(" - - - "+(queries.get(i).get(1)^la)%n);
-                returnList.add((queries.get(i).get(1)^la)%n, temp);
-//                returnList.set((queries.get(i).get(1)^la)%n, queries.get(i).get(2));
-            } else {
-                int temp = returnList.get((returnList.get(i).get(1)^la)%n).get(2);
-//                returnList.get((queries.get(i).get(1)^la)%n).get(queries.get(i).get(2));
-                System.out.println(returnList.get(i) + "temp -"+temp);
-                ansArr.add(temp);
-                la = temp;
-            }
-            System.out.println(returnList);
-            System.out.println((queries.get(i).get(1)^la)%n+ " " + queries.get(i).get(2) + " -------" + la);
-            
-        }
-        System.out.println(returnList);
-        return ansArr;
-    }
+        ArrayList<ArrayList<Integer>> arr = new ArrayList<>();
+        ArrayList<Integer> ret = new ArrayList<>();
 
+        for (int i=0; i<n; i++) {
+            arr.add(new ArrayList<>());
+        }
+        int lastAnswer = 0;
+        for (List<Integer> q: queries) {
+            int idx = (q.get(1)^lastAnswer)%n;
+            if (q.get(0) == 1) {
+                arr.get(idx).add(q.get(2));
+            } else {
+                lastAnswer = arr.get(idx).get((q.get(2)%(arr.get(idx).size())));
+                ret.add(lastAnswer);
+            }
+        }
+        System.out.println(ret);
+        return ret;
+    }
 }
 
 public class DynamicArray {
@@ -79,7 +67,7 @@ public class DynamicArray {
         li.add(li5);
         
         Result.dynamicArray(2, li);
-        System.out.println(1^7);
+//        System.out.println(1^7);
     }
     
 }
